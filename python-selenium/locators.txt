@@ -1,0 +1,54 @@
+0. Find Headers
+Write an XPath that collects all the header links
+(all hyperlinks in header tabs?)
+
+//div[@id='vl-flyout-nav']/ul/li/a/@href  
+
+
+1. Find filter sections. 
+Write an XPath that collects left navigation blocks 
+
+//div[@class='srp-rail__left']//li[@class='x-refine__main__list ']
+OR:
+//div[@class='srp-rail__left']//li[contains(@class, 'x-refine__main__list ')] 
+OR:
+//ul[@class='x-refine__left__nav']/li[@class='x-refine__main__list ']
+
+If we do not need to find/select the 1st filter “Category” (only the last 13 ones):
+(//ul[@class='x-refine__left__nav']//li[@class='x-refine__main__list '])[position() > 1]
+
+If we have to find all "titles" of these left navigation blocks:
+//div[@class='srp-rail__left']//li[@class='x-refine__main__list ']//h3[@class="x-refine__item"]
+OR:
+//ul[@class="x-refine__left__nav"]/li//h3 
+
+
+2. If we have to find/select a specific section based on the header of the section:
+
+//ul[@class='x-refine__left__nav']//li[@class='x-refine__main__list ' and .//h3[text()='US Shoe Size']] 
+//ul[@class='x-refine__left__nav']//li[@class='x-refine__main__list ' and .//h3[text()='Brand']]
+//ul[@class='x-refine__left__nav']//li[@class='x-refine__main__list ' and .//h3[text()='Color']]
+etc...
+
+
+3. To select specific checkbox (only chechbox) within the section based on the checkbox label (e.g., 'adidas'): 
+
+//ul[@class='x-refine__left__nav']//li[@class='x-refine__main__list ' and .//h3[text()='Brand']]//span[@class='cbx x-refine__multi-select-cbx' and text()='adidas']/../../..//./input[@type='checkbox']
+OR:
+//ul[@class='x-refine__left__nav']//li[@class='x-refine__main__list ' and .//h3[text()='Brand']]//span[@class='cbx x-refine__multi-select-cbx' and text()='adidas']/ancestor::div[@class='x-refine__multi-select']//input[@type='checkbox']
+
+
+4. Make it case insensitive. Write an XPath to collect all items. 
+Add an option to select an item by title. This XPath should work with passing a title in lower case only.
+
+//div[@class='s-item__title']/span/text()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), "sebago docksides men's new classic 2-eye leather boat shoes slip on casual shoes")]
+
+
+5. Pause it. Write an XPath to collect the links in the dropdown menu 'My eBay'
+To see the links pause the page when dropdown is open. When you work with the XPath - the dropdown should not close 
+
+//li[@id='gh-eb-My']//div[@id='gh-eb-My-o']//li/a//@href
+
+
+To inspect the links in the dropdown menu while keeping it open (while working with XPath):
+Go to DevTools > Sources tab, hover over mouse on the menu "My eBay" and press F8 key on the keyboard.
